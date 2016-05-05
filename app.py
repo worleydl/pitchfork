@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_socketio import SocketIO, emit, join_room
+from flask_socketio import SocketIO, emit, join_room, leave_room
 import eventlet
 import redis
 from threading import Thread
@@ -20,6 +20,10 @@ def redis_thread():
 @socketio.on('join')
 def join(message):
 	join_room(int(message))
+
+@socketio.on('leave')
+def leave(message):
+	leave_room(int(message))
 
 if __name__ == '__main__':
 	# Fire up redis thread
